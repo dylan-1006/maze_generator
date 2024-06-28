@@ -77,11 +77,11 @@ flutter:
   fonts:
      - family: SF-Pro
        fonts:
-        - asset: fonts/SF-Pro.ttf
+        - asset: lib/fonts/SF-Pro.ttf
           weight: 400
-        - asset: fonts/SF-Pro-Display-Semibold.otf
+        - asset: lib/fonts/SF-Pro-Display-Semibold.otf
           weight: 600
-        - asset: fonts/SF-Pro-Display-Bold.otf
+        - asset: lib/fonts/SF-Pro-Display-Bold.otf
           weight: 700
     
   #   - family: Trajan Pro
