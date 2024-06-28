@@ -1,17 +1,15 @@
 import "package:flutter/material.dart";
+import "package:maze_generator/widgets/algorithm_drop_down.dart";
 
-enum AlgorithmLabel { DepthFirst, Kruskal }
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   double _value = 20;
-  AlgorithmLabel? selectedAlgorithm;
 
   @override
   Widget build(BuildContext context) {
@@ -27,32 +25,7 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Align(
-              child: Container(
-                width: 190,
-                margin: EdgeInsets.only(top: 50, bottom: 50),
-                alignment: Alignment.center,
-                child: DropdownMenu<AlgorithmLabel>(
-                    textStyle: TextStyle(fontWeight: FontWeight.w600),
-                    label: Text(
-                      'Algorithm',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Color(0XFF1E1E1E),
-                          fontWeight: FontWeight.w600),
-                    ),
-                    width: 190,
-                    initialSelection: AlgorithmLabel.DepthFirst,
-                    dropdownMenuEntries: AlgorithmLabel.values
-                        .map<DropdownMenuEntry<AlgorithmLabel>>(
-                            (AlgorithmLabel algorithm) {
-                      return DropdownMenuEntry<AlgorithmLabel>(
-                        value: algorithm,
-                        label: algorithm.toString().split('.').last,
-                      );
-                    }).toList()),
-              ),
-            ),
+            AlgorithmDropDown(),
             Container(
               height: 360,
               margin: EdgeInsets.symmetric(horizontal: 25),
