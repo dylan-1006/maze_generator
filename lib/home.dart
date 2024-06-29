@@ -1,5 +1,8 @@
 import "package:flutter/material.dart";
+import "package:maze_generator/classes/maze.dart";
+import "package:maze_generator/classes/maze_generator.dart";
 import "package:maze_generator/widgets/algorithm_drop_down.dart";
+import "package:maze_generator/widgets/maze_painter.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +13,37 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   double _value = 20;
+  late Maze maze;
+  late MazeGenerator generator;
+
+  void initState() {
+    maze = Maze(20, 20);
+    generator = MazeGenerator(maze);
+    generator.generateMaze();
+
+    for (int i = 0; i < generator.maze.rows; i++) {
+      for (int j = 0; j < generator.maze.columns; j++) {
+        print('Cell at ' +
+            i.toString() +
+            ',' +
+            j.toString() +
+            "\nVisited: " +
+            generator.maze.grid[i][j].visitedBefore.toString() +
+            '\n' +
+            'TopWall: ' +
+            generator.maze.grid[i][j].topWall.toString() +
+            '\n' +
+            'BottomWall: ' +
+            generator.maze.grid[i][j].bottomWall.toString() +
+            '\n' +
+            'LeftWall: ' +
+            generator.maze.grid[i][j].leftWall.toString() +
+            '\n' +
+            'RightWall: ' +
+            generator.maze.grid[i][j].rightWall.toString());
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 360,
               margin: EdgeInsets.symmetric(horizontal: 25),
               decoration: BoxDecoration(color: Colors.black),
+              child: MazeWidget(generator.maze),
             ),
             Container(
               alignment: Alignment.bottomRight,
