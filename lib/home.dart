@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:maze_generator/classes/maze.dart";
 import "package:maze_generator/classes/maze_generator.dart";
-import "package:maze_generator/widgets/algorithm_drop_down.dart";
 import "package:maze_generator/widgets/maze_painter.dart";
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   double mazeSize = 20;
   late Maze maze;
   late MazeGenerator generator;
+  Duration mazeGenerationTime = Duration.zero;
   int previousMazeSize = 20;
   bool finishedDrawing = false;
 
@@ -32,7 +32,20 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const AlgorithmDropDown(),
+            Container(
+              margin: EdgeInsets.only(top: 50),
+              child: Text(
+                "Generation Duration:",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
+              ),
+            ),
+            Container(
+                margin: EdgeInsets.only(bottom: 30),
+                child: Text(
+                  (mazeGenerationTime.inMicroseconds / 1000000).toString() +
+                      's',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
+                )),
             Container(
               alignment: Alignment.center,
               height: 360,
@@ -68,7 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               child: Text(
                 mazeSize.round().toString(),
-                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                style:
+                    const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
               ),
             ),
             Slider(
@@ -104,9 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     previousMazeSize = mazeSize.round();
                     maze = Maze(mazeSize.round(), mazeSize.round());
-                    //maze = Maze(100, 100);
                     generator = MazeGenerator(maze);
-                    generator.generateMaze();
+                    mazeGenerationTime = generator.generateMaze();
 
                     // for (int i = 0; i < generator.maze.rows; i++) {
                     //   for (int j = 0; j < generator.maze.columns; j++) {
