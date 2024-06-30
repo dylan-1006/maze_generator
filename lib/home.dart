@@ -19,12 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int previousMazeSize = 20;
   bool finishedDrawing = false;
 
-  void initState() {
-    // maze = Maze(10, 10);
-    // generator = MazeGenerator(maze);
-    // generator.generateMaze();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,14 +35,18 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             AlgorithmDropDown(),
             Container(
+              alignment: Alignment.center,
               height: 360,
               margin: EdgeInsets.symmetric(horizontal: 25),
               decoration: BoxDecoration(color: Colors.transparent),
               child: finishedDrawing
                   ? MazeWidget(generator.maze)
                   : Text(
-                      'loading',
-                      style: TextStyle(color: Colors.amber),
+                      'Click generate to create a new maze',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15),
                     ),
             ),
             Container(
