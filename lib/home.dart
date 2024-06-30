@@ -1,4 +1,3 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:maze_generator/classes/maze.dart";
 import "package:maze_generator/classes/maze_generator.dart";
@@ -23,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Maze Generator',
             style: TextStyle(
                 fontWeight: FontWeight.w700, fontSize: 32, color: Colors.black),
@@ -33,15 +32,15 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AlgorithmDropDown(),
+            const AlgorithmDropDown(),
             Container(
               alignment: Alignment.center,
               height: 360,
-              margin: EdgeInsets.symmetric(horizontal: 25),
-              decoration: BoxDecoration(color: Colors.transparent),
+              margin: const EdgeInsets.symmetric(horizontal: 25),
+              decoration: const BoxDecoration(color: Colors.transparent),
               child: finishedDrawing
                   ? MazeWidget(generator.maze)
-                  : Text(
+                  : const Text(
                       'Click generate to create a new maze',
                       style: TextStyle(
                           color: Colors.black,
@@ -51,17 +50,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Container(
               alignment: Alignment.bottomRight,
+              margin: const EdgeInsets.only(bottom: 35, left: 25, right: 25),
               child: Text(
-                previousMazeSize.toString() + 'x' + previousMazeSize.toString(),
+                '${previousMazeSize}x$previousMazeSize',
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: finishedDrawing ? Colors.black : Colors.transparent),
               ),
-              margin: EdgeInsets.only(bottom: 35, left: 25, right: 25),
             ),
             Container(
-              child: Text(
+              child: const Text(
                 'Select the size of maze',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
               ),
@@ -69,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               child: Text(
                 mazeSize.round().toString(),
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
               ),
             ),
             Slider(
@@ -87,16 +86,16 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             Container(
-              margin: EdgeInsets.only(top: 25),
+              margin: const EdgeInsets.only(top: 25),
               width: 140,
               height: 45,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
                   boxShadow: [
                     BoxShadow(
                         color: Colors.black.withOpacity(0.25),
                         blurRadius: 4,
-                        offset: Offset(0, 4))
+                        offset: const Offset(0, 4))
                   ]),
               child: TextButton(
                 style: ButtonStyle(
@@ -134,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     finishedDrawing = true;
                   });
                 },
-                child: Text(
+                child: const Text(
                   "Generate",
                   style: TextStyle(
                       color: Colors.white,

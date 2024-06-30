@@ -16,11 +16,11 @@ class _AlgorithmDropDownState extends State<AlgorithmDropDown> {
     return Align(
       child: Container(
         width: 190,
-        margin: EdgeInsets.only(top: 50, bottom: 50),
+        margin: const EdgeInsets.only(top: 50, bottom: 50),
         alignment: Alignment.center,
         child: DropdownMenu<AlgorithmLabel>(
-            textStyle: TextStyle(fontWeight: FontWeight.w600),
-            label: Text(
+            textStyle: const TextStyle(fontWeight: FontWeight.w600),
+            label: const Text(
               'Algorithm',
               textAlign: TextAlign.center,
               style: TextStyle(

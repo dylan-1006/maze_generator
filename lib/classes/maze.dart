@@ -1,5 +1,3 @@
-import "package:flutter/material.dart";
-
 class Cell {
   //Each cell is a square that has 4 walls
   //True indicates that the wall hasn't been removed yet

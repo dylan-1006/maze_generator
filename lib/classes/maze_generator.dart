@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:maze_generator/classes/maze.dart';
 
 class MazeGenerator {
