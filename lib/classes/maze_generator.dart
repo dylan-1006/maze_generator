@@ -63,22 +63,22 @@ class MazeGenerator {
     switch (direction) {
       case 0: //Break wall between current cell & cell above
         maze.grid[row][column].topWall = false;
-        maze.grid[row--][column].bottomWall = false;
+        maze.grid[row - 1][column].bottomWall = false;
         break;
 
       case 1: //Break wall between current cell & cell below
         maze.grid[row][column].bottomWall = false;
-        maze.grid[row++][column].topWall = false;
+        maze.grid[row + 1][column].topWall = false;
         break;
 
       case 2: //Break wall between current cell & left cell
         maze.grid[row][column].leftWall = false;
-        maze.grid[row][column--].rightWall = false;
+        maze.grid[row][column - 1].rightWall = false;
         break;
 
       case 3: //Break wall between current cell & right cell
         maze.grid[row][column].rightWall = false;
-        maze.grid[row][column++].leftWall = false;
+        maze.grid[row][column + 1].leftWall = false;
         break;
     }
   }

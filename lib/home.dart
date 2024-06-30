@@ -1,3 +1,4 @@
+import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:maze_generator/classes/maze.dart";
 import "package:maze_generator/classes/maze_generator.dart";
@@ -12,37 +13,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double _value = 20;
+  double mazeSize = 20;
   late Maze maze;
   late MazeGenerator generator;
+  int previousMazeSize = 20;
+  bool finishedDrawing = false;
 
   void initState() {
-    maze = Maze(20, 20);
-    generator = MazeGenerator(maze);
-    generator.generateMaze();
-
-    for (int i = 0; i < generator.maze.rows; i++) {
-      for (int j = 0; j < generator.maze.columns; j++) {
-        print('Cell at ' +
-            i.toString() +
-            ',' +
-            j.toString() +
-            "\nVisited: " +
-            generator.maze.grid[i][j].visitedBefore.toString() +
-            '\n' +
-            'TopWall: ' +
-            generator.maze.grid[i][j].topWall.toString() +
-            '\n' +
-            'BottomWall: ' +
-            generator.maze.grid[i][j].bottomWall.toString() +
-            '\n' +
-            'LeftWall: ' +
-            generator.maze.grid[i][j].leftWall.toString() +
-            '\n' +
-            'RightWall: ' +
-            generator.maze.grid[i][j].rightWall.toString());
-      }
-    }
+    // maze = Maze(10, 10);
+    // generator = MazeGenerator(maze);
+    // generator.generateMaze();
   }
 
   @override
@@ -63,14 +43,22 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               height: 360,
               margin: EdgeInsets.symmetric(horizontal: 25),
-              decoration: BoxDecoration(color: Colors.black),
-              child: MazeWidget(generator.maze),
+              decoration: BoxDecoration(color: Colors.transparent),
+              child: finishedDrawing
+                  ? MazeWidget(generator.maze)
+                  : Text(
+                      'loading',
+                      style: TextStyle(color: Colors.amber),
+                    ),
             ),
             Container(
               alignment: Alignment.bottomRight,
               child: Text(
-                '30x30',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                previousMazeSize.toString() + 'x' + previousMazeSize.toString(),
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: finishedDrawing ? Colors.black : Colors.transparent),
               ),
               margin: EdgeInsets.only(bottom: 35, left: 25, right: 25),
             ),
@@ -80,17 +68,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
               ),
             ),
+            Container(
+              child: Text(
+                mazeSize.round().toString(),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              ),
+            ),
             Slider(
-              divisions: 4,
+              divisions: 9,
               min: 10.0,
-              max: 50.0,
-              value: _value,
+              max: 100.0,
+              value: mazeSize,
               activeColor: Colors.black,
               inactiveColor: Colors.black.withOpacity(0.25),
-              label: '${_value.round()}',
+              label: '${mazeSize.round()}',
               onChanged: (value) {
                 setState(() {
-                  _value = value;
+                  mazeSize = value;
                 });
               },
             ),
@@ -109,7 +103,39 @@ class _HomeScreenState extends State<HomeScreen> {
               child: TextButton(
                 style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(Colors.black)),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    previousMazeSize = mazeSize.round();
+                    maze = Maze(mazeSize.round(), mazeSize.round());
+                    //maze = Maze(100, 100);
+                    generator = MazeGenerator(maze);
+                    generator.generateMaze();
+
+                    // for (int i = 0; i < generator.maze.rows; i++) {
+                    //   for (int j = 0; j < generator.maze.columns; j++) {
+                    //     print('Cell at ' +
+                    //         i.toString() +
+                    //         ',' +
+                    //         j.toString() +
+                    //         "\nVisited: " +
+                    //         generator.maze.grid[i][j].visitedBefore.toString() +
+                    //         '\n' +
+                    //         'TopWall: ' +
+                    //         generator.maze.grid[i][j].topWall.toString() +
+                    //         '\n' +
+                    //         'BottomWall: ' +
+                    //         generator.maze.grid[i][j].bottomWall.toString() +
+                    //         '\n' +
+                    //         'LeftWall: ' +
+                    //         generator.maze.grid[i][j].leftWall.toString() +
+                    //         '\n' +
+                    //         'RightWall: ' +
+                    //         generator.maze.grid[i][j].rightWall.toString());
+                    //   }
+                    // }
+                    finishedDrawing = true;
+                  });
+                },
                 child: Text(
                   "Generate",
                   style: TextStyle(
