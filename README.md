@@ -1,3 +1,5 @@
+# Dylan Eu
+
 # Maze Generator
 
   This is a simple Android mobile application developed using Flutter that generates random perfect mazes.
@@ -13,8 +15,9 @@
 2. Open cloned repository folder on VS Code.
 3. Create a virtual device on Android Studio (*Google Pixel 6 with API 35*).
 4. Make sure newly created virtual device is selected on VS Code.
-5. *VS Code --> Run --> Run Without Debugging* or "*CTRL + F5*" on Windows.
-6. Start using application.
+5. Open main.dart file.
+6. *VS Code --> Run --> Run Without Debugging* or "*CTRL + F5*" on Windows.
+7. Start using application.
  
 ## Features
 - Generates random perfect mazes of varying sizes
