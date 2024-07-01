@@ -12,63 +12,63 @@ class MazeGenerator {
 
   MazeGenerator(this.maze);
 
+  //Generate maze and return the duration it took
   Duration generateMaze() {
-    //Timer to measure how much time required to generate maze
     final startTime = DateTime.now();
-    //Fixed starting point; Can be changed to start at random position
+    //Start generating maze with fixed top left corner position.
     generateUsingRecursiveBacktracking(0, 0);
     final endTime = DateTime.now();
     return endTime.difference(startTime);
   }
 
+  //Recursive backtracking algorithm to generate maze
   void generateUsingRecursiveBacktracking(int row, int column) {
     //Initialise starting cell as visited
     maze.grid[row][column].visitedBefore = true;
 
-    // 0 = Up, 1 = Down, 2 = Left, 3 = Right
-    //List<int> directions = [0, 1, 2, 3];
+    //Shuffle direction ensure random maze is being generated
     List<int> directions = [UP, DOWN, LEFT, RIGHT];
-    directions.shuffle(random); //Makes moving direction random
+    directions.shuffle(random);
 
-    //For loop with recursion for recursive backtracking
     for (int direction in directions) {
       int newCellRow = row;
       int newCellColumn = column;
 
       switch (direction) {
-        case UP: //Move up
+        case UP:
           newCellRow--;
           break;
-        case DOWN: //Move down
+        case DOWN:
           newCellRow++;
           break;
 
-        case LEFT: //Move left
+        case LEFT:
           newCellColumn--;
           break;
 
-        case RIGHT: //Move right
+        case RIGHT:
           newCellColumn++;
           break;
       }
 
       if (isInBounds(newCellRow, newCellColumn) &&
           !maze.grid[newCellRow][newCellColumn].visitedBefore) {
-        removeCellWall(row, column, direction);
+        removeWallBetweenCells(row, column, direction);
         generateUsingRecursiveBacktracking(newCellRow, newCellColumn);
       }
     }
   }
 
+  //Checks if a cell is within the bounds of maze
   bool isInBounds(int row, int column) {
-    //Checks if row & column are bigger than 0 but not bigger than maze size
     bool inBounds =
         row >= 0 && row < maze.rows && column >= 0 && column < maze.columns;
 
     return inBounds;
   }
 
-  void removeCellWall(int row, int column, int direction) {
+  //Removes wall between two adjacent celss
+  void removeWallBetweenCells(int row, int column, int direction) {
     switch (direction) {
       case UP: //Break wall between current cell & cell above
         maze.grid[row][column].topWall = false;

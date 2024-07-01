@@ -15,21 +15,24 @@ class MazePainter extends CustomPainter {
       ..color = Colors.black
       ..strokeWidth = 2;
 
-    //Nested for loop to iterate through each column & row for painting
+    //Nested for loop to iterate through each cell in maze grid
     for (int row = 0; row < maze.rows; row++) {
       for (int col = 0; col < maze.columns; col++) {
         //Get x & y coordinate by multiplying current column/row with width/height
         double x = col * cellWidth;
         double y = row * cellHeight;
-        
+
+        //Draw walls of cell if they are still intact
         if (maze.grid[row][col].topWall) {
           canvas.drawLine(Offset(x, y), Offset(x + cellWidth, y), wallPaint);
         }
         if (maze.grid[row][col].rightWall) {
-          canvas.drawLine(Offset(x + cellWidth, y), Offset(x + cellWidth, y + cellHeight), wallPaint);
+          canvas.drawLine(Offset(x + cellWidth, y),
+              Offset(x + cellWidth, y + cellHeight), wallPaint);
         }
         if (maze.grid[row][col].bottomWall) {
-          canvas.drawLine(Offset(x, y + cellHeight), Offset(x + cellWidth, y + cellHeight), wallPaint);
+          canvas.drawLine(Offset(x, y + cellHeight),
+              Offset(x + cellWidth, y + cellHeight), wallPaint);
         }
         if (maze.grid[row][col].leftWall) {
           canvas.drawLine(Offset(x, y), Offset(x, y + cellHeight), wallPaint);
@@ -40,7 +43,7 @@ class MazePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+    return true; //Only return true if we wish to repaint maze
   }
 }
 
@@ -51,7 +54,8 @@ class MazeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        size: const Size(double.infinity, double.infinity),
+        size: const Size(
+            double.infinity, double.infinity), //Use all available space
         painter: MazePainter(maze));
   }
 }
